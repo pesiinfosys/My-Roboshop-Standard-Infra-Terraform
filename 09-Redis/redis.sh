@@ -1,6 +1,5 @@
 #!/bin/bash
-cd /home/centos
+cd /tmp
 git clone https://github.com/pesiinfosys/My-roboshop-shell-tf.git
 cd My-roboshop-shell-tf
-sh web.sh # This web.sh file from git repo
-
+sh redis.sh # This redis.sh file from git repo
