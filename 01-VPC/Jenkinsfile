@@ -27,17 +27,14 @@ pipeline {
                 '''
             }
         }
-        // stage('deploy') {
-        //     steps {
-        //         echo "Deployimg..."
-        //         // we can mention multiple linux commands like bellow ('''')
-        //         sh '''    
-        //         df -h
-        //         free -m
-        //         '''
-        //         echo "PESI"
-        //     }
-        // }
+        stage('apply') {
+            steps {
+                timeout(time: 15, unit: "MINUTES") {
+	                    input message: 'Do you want to apply the changes?', ok: 'Yes'
+	                }
+                echo "terraform apply start"
+            }
+        }
     }
     // post {
     //     always {
