@@ -9,6 +9,7 @@ pipeline {
                 sh '''
                     ls -ltr
                     pwd
+                    cd 01-VPC
                     terraform init
                 '''
                 echo "PESI"
@@ -17,6 +18,7 @@ pipeline {
         stage('plan') {
             steps {
                 sh '''
+                    cd 01-VPC
                     terraform plan
                 '''
             }
