@@ -27,12 +27,30 @@ pipeline {
                 '''
             }
         }
-        stage('apply') {
+        // THIS BLOCK ALSO FINE
+        // stage('apply') {
+        //     steps {
+        //         timeout(time: 15, unit: "MINUTES") {
+	    //                 input message: 'Do you want to apply the changes?', ok: 'Yes'
+	    //             }
+        //         echo "terraform apply start"
+        //     }
+        // }
+        stage ('Approval') {
             steps {
                 timeout(time: 15, unit: "MINUTES") {
 	                    input message: 'Do you want to apply the changes?', ok: 'Yes'
-	                }
-                echo "terraform apply start"
+	                 }
+            }
+        }
+
+        stage ('Apply') {
+            steps {
+                sh '''
+                    pwd
+                    cd 01-VPC
+                    terraform apply -auto-approve
+                '''
             }
         }
     }
