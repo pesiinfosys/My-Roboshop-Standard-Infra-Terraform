@@ -7,18 +7,16 @@ pipeline {
         ansiColor('xterm')
     }
     stages {
-        // stage('init') {
-        //     steps {
-        //         sh '''
-                    
-        //             pwd
-        //             cd 01-VPC
-        //             ls -ltr
-        //             terraform init
-        //         '''
-        //         echo "PESI"
-        //     }
-        // }
+        stage('init') {
+            steps {
+                sh '''
+                    pwd
+                    cd 01-VPC
+                    ls -ltr
+                    terraform init
+                '''
+            }
+        }
         // stage('plan') {
         //     steps {
         //         sh '''
