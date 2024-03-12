@@ -10,22 +10,23 @@ pipeline {
         stage('init') {
             steps {
                 sh '''
-                    ls -ltr
+                    
                     pwd
                     cd 01-VPC
+                    ls -ltr
                     terraform init
                 '''
                 echo "PESI"
             }
         }
-        stage('plan') {
-            steps {
-                sh '''
-                    cd 01-VPC
-                    terraform plan
-                '''
-            }
-        }
+        // stage('plan') {
+        //     steps {
+        //         sh '''
+        //             cd 01-VPC
+        //             terraform plan
+        //         '''
+        //     }
+        // }
         // stage('deploy') {
         //     steps {
         //         echo "Deployimg..."
