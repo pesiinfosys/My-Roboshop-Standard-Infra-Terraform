@@ -1,0 +1,45 @@
+pipeline {
+    // agent any
+    agent {
+        label "Agent-1"
+    }
+    stages {
+        stage('init') {
+            steps {
+                sh '''
+                    terraform init
+                '''
+
+            }
+        }
+        stage('plan') {
+            steps {
+                sh '''
+                    terraform plan
+                '''
+            }
+        }
+        // stage('deploy') {
+        //     steps {
+        //         echo "Deployimg..."
+        //         // we can mention multiple linux commands like bellow ('''')
+        //         sh '''    
+        //         df -h
+        //         free -m
+        //         '''
+        //         echo "PESI"
+        //     }
+        // }
+    }
+    // post {
+    //     always {
+    //         echo "Always do this when pipeline triggered"
+    //     }
+    //     success {
+    //         echo "Run at the time of SUCCESS"
+    //     }
+    //     failure {
+    //         echo "Run at the time of failure"
+    //     }
+    // }
+}
