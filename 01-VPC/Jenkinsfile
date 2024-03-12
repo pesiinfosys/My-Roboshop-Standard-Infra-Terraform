@@ -7,49 +7,59 @@ pipeline {
         ansiColor('xterm')
     }
     stages {
-        stage('init') {
-            steps {
-                sh '''
+        // stage('init') {
+        //     steps {
+        //         sh '''
                     
-                    pwd
-                    cd 01-VPC
-                    ls -ltr
-                    terraform init
-                '''
-                echo "PESI"
-            }
-        }
-        stage('plan') {
-            steps {
-                sh '''
-                    cd 01-VPC
-                    terraform plan
-                '''
-            }
-        }
-        // THIS BLOCK ALSO FINE
-        // stage('apply') {
+        //             pwd
+        //             cd 01-VPC
+        //             ls -ltr
+        //             terraform init
+        //         '''
+        //         echo "PESI"
+        //     }
+        // }
+        // stage('plan') {
+        //     steps {
+        //         sh '''
+        //             cd 01-VPC
+        //             terraform plan
+        //         '''
+        //     }
+        // }
+        // // THIS BLOCK ALSO FINE
+        // // stage('apply') {
+        // //     steps {
+        // //         timeout(time: 15, unit: "MINUTES") {
+	    // //                 input message: 'Do you want to apply the changes?', ok: 'Yes'
+	    // //             }
+        // //         echo "terraform apply start"
+        // //     }
+        // // }
+        // stage ('Approval') {
         //     steps {
         //         timeout(time: 15, unit: "MINUTES") {
 	    //                 input message: 'Do you want to apply the changes?', ok: 'Yes'
-	    //             }
-        //         echo "terraform apply start"
+	    //              }
         //     }
         // }
-        stage ('Approval') {
-            steps {
-                timeout(time: 15, unit: "MINUTES") {
-	                    input message: 'Do you want to apply the changes?', ok: 'Yes'
-	                 }
-            }
-        }
 
-        stage ('Apply') {
+        // stage ('Apply') {
+        //     steps {
+        //         sh '''
+        //             pwd
+        //             cd 01-VPC
+        //             terraform apply -auto-approve
+        //         '''
+        //     }
+        // }
+        
+        stage ('Destroy') {
             steps {
                 sh '''
                     pwd
                     cd 01-VPC
-                    terraform apply -auto-approve
+                    terraform destroy -auto-approve
                 '''
             }
         }
