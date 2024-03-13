@@ -17,14 +17,14 @@ pipeline {
                 '''
             }
         }
-        // stage('plan') {
-        //     steps {
-        //         sh '''
-        //             cd 01-VPC
-        //             terraform plan
-        //         '''
-        //     }
-        // }
+        stage('plan') {
+            steps {
+                sh '''
+                    cd 01-VPC
+                    terraform plan
+                '''
+            }
+        }
         // // THIS BLOCK ALSO FINE
         // // stage('apply') {
         // //     steps {
@@ -34,33 +34,33 @@ pipeline {
         // //         echo "terraform apply start"
         // //     }
         // // }
-        // stage ('Approval') {
-        //     steps {
-        //         timeout(time: 15, unit: "MINUTES") {
-	    //                 input message: 'Do you want to apply the changes?', ok: 'Yes'
-	    //              }
-        //     }
-        // }
+        stage ('Approval') {
+            steps {
+                timeout(time: 15, unit: "MINUTES") {
+	                    input message: 'Do you want to apply the changes?', ok: 'Yes'
+	                 }
+            }
+        }
 
-        // stage ('Apply') {
-        //     steps {
-        //         sh '''
-        //             pwd
-        //             cd 01-VPC
-        //             terraform apply -auto-approve
-        //         '''
-        //     }
-        // }
-        
-        stage ('Destroy') {
+        stage ('Apply') {
             steps {
                 sh '''
                     pwd
                     cd 01-VPC
-                    terraform destroy -auto-approve
+                    terraform apply -auto-approve
                 '''
             }
         }
+        
+        // stage ('Destroy') {
+        //     steps {
+        //         sh '''
+        //             pwd
+        //             cd 01-VPC
+        //             terraform destroy -auto-approve
+        //         '''
+        //     }
+        // }
     }
     // post {
     //     always {
