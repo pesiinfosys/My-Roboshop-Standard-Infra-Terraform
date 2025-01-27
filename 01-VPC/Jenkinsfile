@@ -79,6 +79,9 @@ pipeline {
     agent{
         label "terraform"
     }
+    options {
+        ansiColor('xterm')
+    }
 
     stages {
         stage ('init') {
