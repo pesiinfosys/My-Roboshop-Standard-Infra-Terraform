@@ -86,15 +86,18 @@ pipeline {
                 sh '''
                     ls -ltr
                     pwd
-                    // terraform init
+                    cd 01-VPC
+                    echo "Initialiazing Terraform"
+                    terraform init
                 '''
+                    
             }   
         }
 
         stage ('plan') {
             steps{
                 sh '''
-                    // terraform plan
+                    echo "Terraform Plan"
                 '''
             }   
         }
