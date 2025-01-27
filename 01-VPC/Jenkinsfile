@@ -1,76 +1,110 @@
+// pipeline {
+//     // agent any
+//     agent {
+//         label "Agent-1"
+//     }
+//     options {
+//         ansiColor('xterm')
+//     }
+//     stages {
+//         stage('init') {
+//             steps {
+//                 sh '''
+//                     pwd
+//                     cd 01-VPC
+//                     ls -ltr
+//                     terraform init
+//                 '''
+//             }
+//         }
+//         stage('plan') {
+//             steps {
+//                 sh '''
+//                     cd 01-VPC
+//                     terraform plan
+//                 '''
+//             }
+//         }
+//         // // THIS BLOCK ALSO FINE
+//         // // stage('apply') {
+//         // //     steps {
+//         // //         timeout(time: 15, unit: "MINUTES") {
+// 	    // //                 input message: 'Do you want to apply the changes?', ok: 'Yes'
+// 	    // //             }
+//         // //         echo "terraform apply start"
+//         // //     }
+//         // // }
+//         stage ('Approval') {
+//             steps {
+//                 timeout(time: 15, unit: "MINUTES") {
+// 	                    input message: 'Do you want to apply the changes?', ok: 'Yes'
+// 	                 }
+//             }
+//         }
+
+//         stage ('Apply') {
+//             steps {
+//                 sh '''
+//                     pwd
+//                     cd 01-VPC
+//                     terraform apply -auto-approve
+//                 '''
+//             }
+//         }
+        
+//         // stage ('Destroy') {
+//         //     steps {
+//         //         sh '''
+//         //             pwd
+//         //             cd 01-VPC
+//         //             terraform destroy -auto-approve
+//         //         '''
+//         //     }
+//         // }
+//     }
+//     // post {
+//     //     always {
+//     //         echo "Always do this when pipeline triggered"
+//     //     }
+//     //     success {
+//     //         echo "Run at the time of SUCCESS"
+//     //     }
+//     //     failure {
+//     //         echo "Run at the time of failure"
+//     //     }
+//     // }
+// }
+
 pipeline {
-    // agent any
-    agent {
-        label "Agent-1"
+    agent{
+        label "terraform"
     }
-    options {
-        ansiColor('xterm')
-    }
+
     stages {
-        stage('init') {
-            steps {
+        stage ('init') {
+            steps{
                 sh '''
-                    pwd
-                    cd 01-VPC
                     ls -ltr
-                    terraform init
+                    pwd
+                    // terraform init
                 '''
-            }
-        }
-        stage('plan') {
-            steps {
-                sh '''
-                    cd 01-VPC
-                    terraform plan
-                '''
-            }
-        }
-        // // THIS BLOCK ALSO FINE
-        // // stage('apply') {
-        // //     steps {
-        // //         timeout(time: 15, unit: "MINUTES") {
-	    // //                 input message: 'Do you want to apply the changes?', ok: 'Yes'
-	    // //             }
-        // //         echo "terraform apply start"
-        // //     }
-        // // }
-        stage ('Approval') {
-            steps {
-                timeout(time: 15, unit: "MINUTES") {
-	                    input message: 'Do you want to apply the changes?', ok: 'Yes'
-	                 }
-            }
+            }   
         }
 
-        stage ('Apply') {
-            steps {
+        stage ('plan') {
+            steps{
                 sh '''
-                    pwd
-                    cd 01-VPC
-                    terraform apply -auto-approve
+                    // terraform plan
                 '''
-            }
+            }   
         }
-        
-        // stage ('Destroy') {
-        //     steps {
-        //         sh '''
-        //             pwd
-        //             cd 01-VPC
-        //             terraform destroy -auto-approve
-        //         '''
-        //     }
-        // }
     }
-    // post {
-    //     always {
-    //         echo "Always do this when pipeline triggered"
-    //     }
-    //     success {
-    //         echo "Run at the time of SUCCESS"
-    //     }
-    //     failure {
-    //         echo "Run at the time of failure"
-    //     }
-    // }
+    post{
+        success {
+            echo "job SUCCESS"
+        }
+        failure {
+            echo "job FAILURE"
+        }
+    }
 }
